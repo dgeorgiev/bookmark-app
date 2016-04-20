@@ -9,3 +9,19 @@
 [package-version] .name {
     font-size: 19px;
 }
+
+
+ng-md-icon {
+    fill: currentColor;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
+}
+
+
+.search {
+    margin-top: 33px;
+}
+gdansk-training {
+    height:100%;
+}
