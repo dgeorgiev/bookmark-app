@@ -1,6 +1,6 @@
 angular.module('ba.tags-service', [
     'ngResource'
-]).service('tagsService', function ($rootScope, $resource, mongolabConfigs) {
+]).service('tagsService', function ($resource, mongolabConfigs) {
 
     var c = mongolabConfigs;
     var url = [c.mongolabUrl, c.dataBase, 'collections', c.collection, ':id'].join('/');
@@ -8,8 +8,8 @@ angular.module('ba.tags-service', [
         update: {method: 'PUT'}
     });
     
-    Tags.prototype.countBookmarks = function(){
-        return $rootScope.bookmarks.reduce((function(count, item){
+    Tags.prototype.countBookmarks = function(bookmarks){
+        return bookmarks.reduce((function(count, item){
             return (item.tags.indexOf(this._id.$oid) >= 0) ? count + 1 : count;
         }).bind(this), 0);
     };

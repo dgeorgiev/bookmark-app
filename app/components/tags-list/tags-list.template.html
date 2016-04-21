@@ -1,0 +1,6 @@
+<md-list>
+    <md-subheader flex class="md-no-sticky">Tags</md-subheader>
+    <md-list-item ui-sref-active="active" ui-sref="filtered({tag: tag.name})" ng-repeat="tag in tags">
+        <p> {{ tag.name }} ({{tag.count }})</p>
+    </md-list-item>
+</md-list>

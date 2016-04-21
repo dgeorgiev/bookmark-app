@@ -1,3 +1,9 @@
+app, bookmarks-app{
+    height: 100%;
+}
+.layout-row.flex {
+    height: 100%;
+}
 ng-md-icon {
     fill: currentColor;
     vertical-align: middle;
@@ -7,6 +13,6 @@ ng-md-icon {
 .search {
     margin-top: 33px;
 }
-bookmarks-app {
-    height: 100%;
+md-list-item.active {
+    color: red;
 }

@@ -1,14 +1,18 @@
 angular.module('ba.bookmarks-service', [
-    'ngResource'
-]).service('bookmarksService', function ($rootScope, $resource, $timeout) {
+    'ngResource',
+    'ui.router'
+]).service('bookmarksService', function ($rootScope, $resource, $state) {
 
     var c = {
         mongolabUrl: 'https://api.mongolab.com/api/1/databases',
         collection: 'bookmarks',
         dataBase: 'angular-training-bookmarks',
-        apiKey: 'KGtpIoEDeTqTkwISpgnhDarX_Vj1AdJA'   
+        apiKey: 'KGtpIoEDeTqTkwISpgnhDarX_Vj1AdJA'
     };
     var url = [c.mongolabUrl, c.dataBase, 'collections', c.collection, ':id'].join('/');
+    
+    
+    
     var Bookmarks = $resource(url, {apiKey: c.apiKey}, {
         update: {method: 'PUT'}
     });
@@ -17,12 +21,21 @@ angular.module('ba.bookmarks-service', [
         
         var id = this._id.$oid;
         
-        $rootScope.bookmarks = $rootScope.bookmarks.reduce(function(ret, element){
-            if(element._id.$oid != id) ret.push(element);
-            return ret;
-        }, []);
+        this.$delete({id: id });
         
-        console.log(this.$delete(id));
+        $rootScope.$broadcast('deletedBookmark', id);
+        
+    };
+    
+    Bookmarks.prototype.save = function() {
+        
+        var id = this._id.$oid;
+        
+        this.$update({id: id }, function(){
+            $rootScope.$broadcast('bookmarksUpdated', this);     
+        });
+        
+       
         
     };
     

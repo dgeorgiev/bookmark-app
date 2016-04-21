@@ -1,10 +1,16 @@
 angular.module('ba.components.tags-list', [
-]).directive('tagsList', function ($timeout) {
+    'ui.router'
+]).directive('tagsList', function ($state) {
     return {
-        templateUrl: 'app/components/tags-list/tags-list.html',
-        scope: true,
-        link: function ($scope, $element, $attr) {
-            
+        templateUrl: 'app/components/tags-list/tags-list.template.html',
+        scope: {
+            tags: '='
+        },
+        link: function($scope){
+            $scope.selectedTag = $state.params.tag;
+            $scope.navigateTo = function(tag){
+                $state.go('filtered', {tag: tag});
+            }
         }
     };
 });
