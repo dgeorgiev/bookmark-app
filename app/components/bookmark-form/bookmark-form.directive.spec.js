@@ -1,11 +1,9 @@
-describe('ba.components.bookmarks-app', function () {
+describe('ba.components.bookmarks-form', function () {
     
     beforeEach(module('ui.router'));
     beforeEach(module('material.components.dialog'));
-    beforeEach(module('ba.components.bookmarks-app'));
     
-    
-    beforeEach(module('ba.components.bookmarks-app', function ($provide ) {
+    beforeEach(module('ba.components.bookmark-form', function ($provide ) {
         var bookmarks = [
             {
                 "_id": {
@@ -50,6 +48,14 @@ describe('ba.components.bookmarks-app', function () {
                     return {
                         $promise: fakePromise.promise
                     };
+                },
+                'save': function(id, callback){
+                    var fakePromise = $q.defer();
+                    fakePromise.resolve(bookmarks);
+                    callback();
+                    return {
+                        $promise: fakePromise.promise
+                    };
                 }
             };
         });
@@ -61,13 +67,17 @@ describe('ba.components.bookmarks-app', function () {
         $mDialog = _$mdDialog_;
         $q =  _$q_;
         
-        directive = directiveBuilder.$build('<bookmarks-app></bookmarks-app>');
+        directive = directiveBuilder.$build('<bookmark-form></bookmark-form>');
         
         //console.log(directive.scope);
-        directive.scope.showForm();
-        directive.scope.hideForm();
-        directive.scope.$digest();
-        //dump(directive.scope);
+        directive.scope.bookmarkForm = {
+            $valid: false,
+            $setPristine: function() {},
+            $setUntouched: function() {}
+        };
+        directive.scope.close();
+        directive.scope.save(directive.scope.bookmarkForm);
+        directive.scope.clear(directive.scope.bookmarkForm);
         //directive.scope.showForm().hide();
         //directive.scope.bookmarks = bookmarks;
     }));
@@ -108,19 +118,19 @@ describe('ba.components.bookmarks-app', function () {
         // ]));
         //expect(tagFilter({})).toBeTruthy();
         
-        expect(directive.element.html()).toBeDefined();
+        // expect(directive.element.html()).toBeDefined();
         
-        var $broadcast = spyOn(directive.scope, '$on').and.callThrough();
+        // var $broadcast = spyOn(directive.scope, '$on').and.callThrough();
         
         
-        directive.scope.$digest();
+        // directive.scope.$digest();
         
-        //directive.scope.$broadcast('deletedBookmark', '571785b8e4b046f2cf46547a', 'dasdsadas');
-        directive.scope.$broadcast('bookmarksUpdated', '571785b8e4b046f2cf46547a', 'dasdsadas');        
+        // directive.scope.$broadcast('deletedBookmark', '571785b8e4b046f2cf46547a', 'dasdsadas');
         
-        // console.log(directive.scope.bookmarks);
+        
+        //console.log(directive.scope.bookmarks);
         //dump($broadcast);
-        // expect($broadcast);
+        //expect($broadcast);
     }));
     
     

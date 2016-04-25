@@ -12,7 +12,9 @@ module.exports = function (config) {
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-animate/angular-animate.js',
             'bower_components/angular-mocks/angular-mocks.js',
+            'bower_components/angular-aria/angular-aria.js',
             'bower_components/angular-material/angular-material.js',
+            'bower_components/angular-material-icons/angular-material-icons.min.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
             'resources/directive-builder.js',
             'resources/package-version/*.js',
@@ -76,7 +78,7 @@ module.exports = function (config) {
             suite: 'Unit tests', // suite will become the package name attribute in xml testsuite element
             useBrowserName: true // add browser name to report and classes names
         },
-        reportSlowerThan: 180,
+        reportSlowerThan: 400,
         logLevel: config.LOG_INFO // for debug use config.LOG_DEBUG
     });
 };

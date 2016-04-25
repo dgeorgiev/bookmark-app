@@ -16,7 +16,6 @@ angular.module('ba.components.bookmark-form', [
                 form.$setUntouched();
             };
             
-            
             $scope.save =  function(form) {
                 bookmarksService.save($scope.bookmark, function(){
                     $rootScope.$broadcast('bookmarksUpdated', this);

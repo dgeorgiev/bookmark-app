@@ -1,12 +1,16 @@
-// describe('gdansk-training.directive', function () {
-//     beforeEach(module('gt.components.hello-world'));
+describe('tags-list', function () {
+    beforeEach(module('ba.components.tags-list'));
 
-//     var directive;
-//     beforeEach(inject(function (directiveBuilder) {
-//         directive = directiveBuilder.$build('<hello-world></hello-world>');
-//     }));
+    var directive, $state;
+    beforeEach(inject(function (directiveBuilder, _$state_) {
+        $state = _$state_;
+        directive = directiveBuilder.$build('<tags-list tags="tags"></tags-list>');
+    }));
 
-//     it('should equal to ethalon html', function () {
-//         expect(directive.element.html()).toBeDefined();
-//     });
-// });
+    it('should equal to ethalon html', function () {
+        scope = directive.element.isolateScope();
+        expect(directive.element.html()).toBeDefined();
+        scope.navigateTo('test');
+        scope.$digest();
+    });
+});

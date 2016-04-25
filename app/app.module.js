@@ -14,12 +14,6 @@ angular.module('app', [
 
 angular.module('app.templates', []);
 
-try {
-    angular.module('app.templates');
-} catch ( error ) {
-    angular.module('app.templates', []).constant('appVersion', null);
-}
-
 angular.module('app').config(function($mdThemingProvider) {
     var customBlueMap = $mdThemingProvider.extendPalette('light-blue', {
         'contrastDefaultColor': 'light',

@@ -24,9 +24,11 @@ angular.module('ba.components.bookmarks-list', [
     };
 }).filter('tag', function(){
     return function(records, tag){
+        if(records.length) {
+            return records.filter(function(record){
+                return (tag) ? record.tags.indexOf(tag) >= 0 : true;
+            });
+        }
         return records;
-        return records.filter(function(record){
-            return (tag) ? record.tags.indexOf(tag) >= 0 : true;
-        }); 
     };
 });

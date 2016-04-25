@@ -9,8 +9,8 @@ angular.module('ba.components.tags-list', [
         link: function($scope){
             $scope.selectedTag = $state.params.tag;
             $scope.navigateTo = function(tag){
-                $state.go('filtered', {tag: tag});
-            }
+                //$state.go('filtered', {tag: tag});
+            };
         }
     };
 });
