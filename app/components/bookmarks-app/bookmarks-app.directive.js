@@ -2,12 +2,11 @@ angular.module('ba.components.bookmarks-app', [
     'ba.components.bookmarks-list',
     'ba.components.bookmark-form',
     'ba.components.tags-list',
-    
-    'ba.tags-service',
+
     'ba.bookmarks-service',
-    
+
     'ui.router'
-]).directive('bookmarksApp', function($mdDialog, $mdMedia, tagsService, bookmarksService){
+]).directive('bookmarksApp', function($mdDialog, bookmarksService){
     return {
         templateUrl: 'app/components/bookmarks-app/bookmarks-app.template.html',
         link: function($scope){
@@ -48,7 +47,8 @@ angular.module('ba.components.bookmarks-app', [
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     
-                    controller: function($scope, $mdDialog){
+                    
+                    controller: function($scope){
                         $scope.bookmark = bookmark || {};
                         
                         $scope.title = $scope.bookmark._id ? 'Edit bookmark' : 'Add bookmark';
@@ -73,9 +73,9 @@ angular.module('ba.components.bookmarks-app', [
 angular.module('ba.components.bookmarks-app').config(function($stateProvider) {
   $stateProvider.state('bookmarks', {
     url: '/bookmarks',
-    template: '<bookmarks-list bookmarks="bookmarks" tags-map="tagsMap" show-form="showForm"></bookmarks-list>'
+    template: '<bookmarks-list bookmarks="bookmarks" show-form="showForm"></bookmarks-list>'
   }).state('filtered', {
     url: '/bookmarks/:tag',
-    template: '<bookmarks-list bookmarks="bookmarks" tags-map="tagsMap" show-form="showForm"></bookmarks-list>'
+    template: '<bookmarks-list bookmarks="bookmarks" show-form="showForm"></bookmarks-list>'
   });
 });

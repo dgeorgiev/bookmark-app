@@ -21,17 +21,17 @@
       Clear
     </md-button>
     
-      <md-button class="md-accent md-raised md-primary" ng-click="save()" style="margin-right:20px;">
+      <md-button class="md-accent md-raised md-primary" ng-click="save()" ng-disabled="bookmarkForm.$invalid" style="margin-right:20px;">
       Save
     </md-button>
   </div>
   
   
   <div  ng-if="bookmark._id">
-    <md-button ng-click="clear(bookmarkForm)">
-      Clear
+    <md-button ng-click="close()">
+      Cancel
     </md-button>
-    <md-button class="md-accent md-raised md-primary" ng-click="bookmark.save()" style="margin-right:20px;">
+    <md-button class="md-accent md-raised md-primary" ng-click="bookmark.save()" ng-disabled="bookmarkForm.$invalid" style="margin-right:20px;">
       Update
     </md-button>
   </div>

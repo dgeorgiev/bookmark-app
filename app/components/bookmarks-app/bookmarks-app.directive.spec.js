@@ -1,13 +1,12 @@
-describe('ba.components.bookmarks-list', function () {
+describe('ba.components.bookmarks-app', function () {
     
     beforeEach(module('ui.router'));
-    beforeEach(module('ba.components.bookmarks-list'));
+    beforeEach(module('material.components.dialog'));
+    beforeEach(module('ba.components.bookmarks-app'));
     
-    var directive, $state, bookmarks;
-    beforeEach(inject(function (directiveBuilder, _$state_) {
-        $state = _$state_;
-        
-        bookmarks = [
+    
+    beforeEach(module('ba.components.bookmarks-app', function ($provide ) {
+        var bookmarks = [
             {
                 "_id": {
                 "$oid": "571785b8e4b046f2cf46547a"
@@ -33,9 +32,42 @@ describe('ba.components.bookmarks-list', function () {
                 "tags": "twitter, hello"
             }
         ];
+        $provide.factory('bookmarksService', function () {
+            return {
+                'get': function () {
+                    return bookmarks[0];
+                },
+                'update': function () {
+                    var fakePromise = $q.defer();
+                    fakePromise.resolve(bookmarks);
+                    return {
+                        $promise: fakePromise.promise
+                    };
+                },
+                'query': function () {
+                    var fakePromise = $q.defer();
+                    fakePromise.resolve(bookmarks);
+                    return {
+                        $promise: fakePromise.promise
+                    };
+                }
+            };
+        });
+    }));
+    
+    var directive, $state, $mdDialog, $q;
+    beforeEach(inject(function ($compile, directiveBuilder, _$state_, _$mdDialog_, bookmarksService, _$q_) {
+        $state = _$state_;
+        $mDialog = _$mdDialog_;
+        $q =  _$q_;
         
-        directive = directiveBuilder.$build('<bookmarks-list bookmarks="bookmarks" show-form="showForm"></bookmarks-list>');
-        directive.scope.bookmarks = bookmarks;
+        directive = directiveBuilder.$build('<bookmarks-app></bookmarks-app>');
+        
+        console.log(directive.scope);
+        directive.scope.showForm();
+        directive.scope.$digest();
+        directive.scope.showForm().hide();
+        //directive.scope.bookmarks = bookmarks;
     }));
 
 
@@ -74,14 +106,14 @@ describe('ba.components.bookmarks-list', function () {
         // ]));
         //expect(tagFilter({})).toBeTruthy();
         
-        expect(directive.element.html()).toBeDefined();
+        // expect(directive.element.html()).toBeDefined();
         
-        var $broadcast = spyOn(directive.scope, '$on').and.callThrough();
+        // var $broadcast = spyOn(directive.scope, '$on').and.callThrough();
         
         
-        directive.scope.$digest();
+        // directive.scope.$digest();
         
-        directive.scope.$broadcast('deletedBookmark', '571785b8e4b046f2cf46547a', 'dasdsadas');
+        // directive.scope.$broadcast('deletedBookmark', '571785b8e4b046f2cf46547a', 'dasdsadas');
         
         
         //console.log(directive.scope.bookmarks);

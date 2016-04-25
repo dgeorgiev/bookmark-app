@@ -8,7 +8,7 @@
             </span>
         </md-subheader>
         
-        <md-list-item ng-repeat="record in bookmarks | filterTag track by $index" layout-padding flex>
+        <md-list-item ng-repeat="record in bookmarks | tag : selectedTag track by $index" layout-padding flex>
             <p>
                 {{ record.name }}
                 ({{ record.url }})

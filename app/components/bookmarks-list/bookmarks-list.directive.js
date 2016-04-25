@@ -1,6 +1,6 @@
 angular.module('ba.components.bookmarks-list', [
-    
-]).directive('bookmarksList', function (bookmarksService, $state) {
+    'ui.router'
+]).directive('bookmarksList', function ($state) {
     return {
         templateUrl: 'app/components/bookmarks-list/bookmarks-list.template.html',
         scope: {
@@ -13,6 +13,7 @@ angular.module('ba.components.bookmarks-list', [
             $scope.selectedTag = $state.params.tag;
             
             $scope.$on('deletedBookmark', function(event, id){
+                
                 $scope.bookmarks = $scope.bookmarks.reduce(function(ret, element){
                     if(element._id.$oid != id) ret.push(element);
                     return ret;
@@ -21,10 +22,11 @@ angular.module('ba.components.bookmarks-list', [
             
         }
     };
-}).filter('filterTag', function($state){
-    return function(records){
+}).filter('tag', function(){
+    return function(records, tag){
+        return records;
         return records.filter(function(record){
-            return ($state.params.tag) ? record.tags.indexOf($state.params.tag) >= 0 : true;
+            return (tag) ? record.tags.indexOf(tag) >= 0 : true;
         }); 
     };
 });
