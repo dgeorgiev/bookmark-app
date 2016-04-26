@@ -66,6 +66,9 @@ describe('ba.components.bookmarks-app', function () {
         //console.log(directive.scope);
         directive.scope.showForm();
         directive.scope.hideForm();
+        directive.scope.showForm('', {
+            _id: {}
+        });
         directive.scope.$digest();
         //dump(directive.scope);
         //directive.scope.showForm().hide();

@@ -13,7 +13,6 @@ angular.module('ba.components.bookmarks-list', [
             $scope.selectedTag = $state.params.tag;
             
             $scope.$on('deletedBookmark', function(event, id){
-                
                 $scope.bookmarks = $scope.bookmarks.reduce(function(ret, element){
                     if(element._id.$oid != id) ret.push(element);
                     return ret;

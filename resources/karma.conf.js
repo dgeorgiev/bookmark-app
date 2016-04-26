@@ -78,7 +78,7 @@ module.exports = function (config) {
             suite: 'Unit tests', // suite will become the package name attribute in xml testsuite element
             useBrowserName: true // add browser name to report and classes names
         },
-        reportSlowerThan: 400,
+        reportSlowerThan: 600,
         logLevel: config.LOG_INFO // for debug use config.LOG_DEBUG
     });
 };
