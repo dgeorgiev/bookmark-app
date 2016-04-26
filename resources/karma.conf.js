@@ -17,16 +17,11 @@ module.exports = function (config) {
             'bower_components/angular-material-icons/angular-material-icons.min.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
             'resources/directive-builder.js',
-            'resources/package-version/*.js',
-            'resources/package-version/*spec.js',
-            'bower_components/d3/d3.js',
-            'app/**/_*.js',
             'app/**/*.module.js',
             'app/**/*.directive.js',
             'app/**/*.html',
             'app/**/*.js',
             'app/*.js',
-            'app/**/*.json'
         ],
         plugins: [
             'karma-ng-html2js-preprocessor',

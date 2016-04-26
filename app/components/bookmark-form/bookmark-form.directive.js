@@ -18,7 +18,7 @@ angular.module('ba.components.bookmark-form', [
             
             $scope.save =  function(form) {
                 bookmarksService.save($scope.bookmark, function(){
-                    $rootScope.$broadcast('bookmarksUpdated', this);
+                    $rootScope.$broadcast('bookmarksUpdated');
                 });
             };
         }

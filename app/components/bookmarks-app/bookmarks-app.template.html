@@ -1,5 +1,5 @@
-  <div layout="column" class="relative" layout-fill role="main" style="height: 100%">
-  
+<div layout="column" class="relative main-content" layout-fill role="main" style="height: 100%">
+
   <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showForm($event)">
     <ng-md-icon icon="add"></ng-md-icon>
   </md-button>
@@ -15,27 +15,24 @@
       <span flex></span>
     </div>
   </md-toolbar>
-<section layout="row" flex>
-    
-    <md-sidenav
-        class="md-sidenav-left"
-        md-component-id="left"
-        md-is-locked-open="$mdMedia('gt-md')"
-        md-whiteframe="4">
-        <md-content>
-        
-            <tags-list tags="tags"></tags-list>
 
-        </md-content>
+  <section layout="row" flex>
+
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+      <md-content>
+
+        <tags-list tags="tags"></tags-list>
+
+      </md-content>
     </md-sidenav>
-    
+
     <md-content flex layout-padding>
-        <ui-view layout="column" layout-fill layout-padding>
-            
-            <bookmarks-list bookmarks="bookmarks" show-form="showForm"></bookmarks-list>
-        
-        </ui-view>
+      <ui-view layout="column" layout-fill layout-padding>
+
+        <bookmarks-list bookmarks="bookmarks" show-form="showForm"></bookmarks-list>
+
+      </ui-view>
     </md-content>
 
-</section>
+  </section>
 </div>

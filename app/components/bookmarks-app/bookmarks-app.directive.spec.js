@@ -56,75 +56,43 @@ describe('ba.components.bookmarks-app', function () {
     }));
     
     var directive, $state, $mdDialog, $q;
-    beforeEach(inject(function ($compile, directiveBuilder, _$state_, _$mdDialog_, bookmarksService, _$q_) {
+    beforeEach(inject(function (directiveBuilder, _$state_, _$mdDialog_, _$q_) {
         $state = _$state_;
         $mDialog = _$mdDialog_;
         $q =  _$q_;
         
         directive = directiveBuilder.$build('<bookmarks-app></bookmarks-app>');
+       
+    }));
+
+
+
+
+
+    it('should equal to ethalon html', inject(function () {
+        expect(directive.element.html()).toBeDefined();
+    }));
+    
+    
+    it('should show form for create/edit bookmark', inject(function () {
         
-        //console.log(directive.scope);
+        
         directive.scope.showForm();
-        directive.scope.hideForm();
+
         directive.scope.showForm('', {
             _id: {}
         });
-        directive.scope.$digest();
-        //dump(directive.scope);
-        //directive.scope.showForm().hide();
-        //directive.scope.bookmarks = bookmarks;
-    }));
-
-
-
-    // it('has a bool filter', inject(function($filter) {
-    //     expect(directive.$filter('tag')).not.toBeNull();
-    // }));
-
-    it('should equal to ethalon html', inject(function () {
-        
-        // dump(tagFilter([
-        //     {
-        //         "_id": {
-        //         "$oid": "571785b8e4b046f2cf46547a"
-        //         },
-        //         "url": "http://google.bg",
-        //         "name": "Google sda",
-        //         "tags": "test, asdzxc"
-        //     },
-        //     {
-        //         "_id": {
-        //         "$oid": "57163da5e4b065a8c4d775e8"
-        //         },
-        //         "name": "Facebook",
-        //         "tags": "test, test2",
-        //         "url": "http://facebook.com"
-        //     },
-        //     {
-        //         "_id": {
-        //         "$oid": "5718db94e4b0e99eb262b0ed"
-        //         },
-        //         "name": "Twitter",
-        //         "url": "http://twitter.com",
-        //         "tags": "twitter, hello"
-        //     }
-        // ]));
-        //expect(tagFilter({})).toBeTruthy();
-        
-        expect(directive.element.html()).toBeDefined();
-        
-        var $broadcast = spyOn(directive.scope, '$on').and.callThrough();
-        
         
         directive.scope.$digest();
         
-        //directive.scope.$broadcast('deletedBookmark', '571785b8e4b046f2cf46547a', 'dasdsadas');
-        directive.scope.$broadcast('bookmarksUpdated', '571785b8e4b046f2cf46547a', 'dasdsadas');        
+        expect(directive.scope.showForm).toBeDefined();
         
-        // console.log(directive.scope.bookmarks);
-        //dump($broadcast);
-        // expect($broadcast);
     }));
     
+    it('should update when bookmarks update event is broadcasted', inject(function () {
+        var $broadcast = spyOn(directive.scope, '$on').and.callThrough();
+        
+        directive.scope.$broadcast('bookmarksUpdated', '571785b8e4b046f2cf46547a', 'dasdsadas');
+    }));
     
 });

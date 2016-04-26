@@ -11,49 +11,51 @@ describe('ba.bookmarks-service', function () {
             callback();
         };
         $httpBackend = _$httpBackend_;
+        $httpBackend.expect('GET', 'https://api.mongolab.com/api/1/databases/angular-training-bookmarks/collections/bookmarks?apiKey=KGtpIoEDeTqTkwISpgnhDarX_Vj1AdJA').respond([ { "_id" : { "$oid" : "57163da5e4b065a8c4d775e8"} , "name" : "Facebook" , "tags" : "test" , "url" : "http://facebook.com"} , { "_id" : { "$oid" : "5718db94e4b0e99eb262b0ed"} , "name" : "Twitter" , "url" : "http://twitter.com" , "tags" : "twitter, hello"} , { "_id" : { "$oid" : "571a082d0a00b2160cdda797"} , "name" : "google" , "url" : "http://google.bg" , "tags" : "google, evil"} , { "_id" : { "$oid" : "571dcd9ff8c2e747621458ec"} , "name" : "test" , "url" : "http://epam.com" , "tags" : "test, test2, test56"} ]
+        );
+        $httpBackend.when('DELETE', /mongolab/).respond(200);
+        
     }));
 
 
-    it('should get all bookmarks', inject(function(){
-        $httpBackend.expect('GET', 'https://api.mongolab.com/api/1/databases/angular-training-bookmarks/collections/bookmarks?apiKey=KGtpIoEDeTqTkwISpgnhDarX_Vj1AdJA').respond(200, 
-        [ { "_id" : { "$oid" : "57163da5e4b065a8c4d775e8"} , "name" : "Facebook" , "tags" : "test" , "url" : "http://facebook.com"} , { "_id" : { "$oid" : "5718db94e4b0e99eb262b0ed"} , "name" : "Twitter" , "url" : "http://twitter.com" , "tags" : "twitter, hello"} , { "_id" : { "$oid" : "571a082d0a00b2160cdda797"} , "name" : "google" , "url" : "http://google.bg" , "tags" : "google, evil"} , { "_id" : { "$oid" : "571dcd9ff8c2e747621458ec"} , "name" : "test" , "url" : "http://epam.com" , "tags" : "test, test2, test56"} ]
-        );
+    it('should get all bookmarks', inject(function($rootScope){
+
         var result = bookmarksService.query();
+        
         $httpBackend.flush();
-        //dump(result);
+        
+        expect(result.length).toEqual(4);
+        
+    }));
+
+    it('should broadcast an event on delete', inject(function($rootScope){
+        
+        var result = bookmarksService.query();
+        
+        $httpBackend.flush();
+        
+        var $broadcast = spyOn($rootScope, '$broadcast');
+        
         result.forEach(function(bookmark){
             bookmark.remove();
+            expect($broadcast).toHaveBeenCalledWith('deletedBookmark', bookmark._id.$oid);
             bookmark.save();
         });
         
-        //var $broadcast = spyOn(bookmarksService, '$broadcast');
-        
-        //directive.scope.$digest();
-        //expect($broadcast).toHaveBeenCalled();
-        //expect(OriginalResource.saidHello).toBe(true);
-        //$httpBackend.expectGET(' /\/api/1/databases/angular-training-bookmark\/(.+)/')
-          //      .respond([ { "_id" : { "$oid" : "57163da5e4b065a8c4d775e8"} , "name" : "Facebook" , "tags" : "test" , "url" : "http://facebook.com"} , { "_id" : { "$oid" : "5718db94e4b0e99eb262b0ed"} , "name" : "Twitter" , "url" : "http://twitter.com" , "tags" : "twitter, hello"} , { "_id" : { //"$oid" : "571a082d0a00b2160cdda797"} , "name" : "google" , "url" : "http://google.bg" , "tags" : "google, evil"} , { "_id" : { "$oid" : "571dcd9ff8c2e747621458ec"} , "name" : "test" , "url" : "http://epam.com" , "tags" : "test, test2, test56"} ]);
-        // var result = bookmarksService.remove();
-        
-        //dump(result);
-
-            // $httpBackend.flush();
     }));
-
-    // describe('getUser', function () {
-    //     // it('should call getUser with username', inject(function (User) {
-    //     //     // $httpBackend.expectGET('/api/index.php/users/test')
-    //     //     //     .respond([{
-    //     //     //     username: 'test'
-    //     //     // }]);
-
-    //     //     // var result = mockBookmarksResource.getUser('test');
-
-    //     //     // $httpBackend.flush();
-
-    //     //     // expect(result[0].username).toEqual('test');
-    //     // }));
-
-    // });
+       
+    it('should broadcast an event on delete', inject(function($rootScope){
+        
+        var result = bookmarksService.query();
+        
+        $httpBackend.flush();
+        
+        var $broadcast = spyOn($rootScope, '$broadcast');
+        
+        result.forEach(function(bookmark){
+            bookmark.save();
+            expect($broadcast).toHaveBeenCalledWith('bookmarksUpdated', this);
+        });
+    }));
 
 });
