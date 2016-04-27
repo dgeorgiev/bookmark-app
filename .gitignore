@@ -12,4 +12,5 @@ index.html
 app/components/**/*.css
 app/demo-code/**/*.css
 deployment/
+dist
                                                   S
